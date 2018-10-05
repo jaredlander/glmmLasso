@@ -122,8 +122,8 @@ predict.glmmLasso <- function(object,newdata=NULL,new.random.design=NULL,...)
    {   
     if(rnd.len==1)
     {
-      subj.new<-levels(as.factor(newdata[,object$subject]))
-      subj.old<-levels(as.factor(object$data[,object$subject]))
+      subj.new<-levels(as.factor(newdata[[object$subject]]))
+      subj.old<-levels(as.factor(object$data[[object$subject]]))
       subj.test<-is.element(subj.new,subj.old)
       subj.ok<-subj.new[subj.test]
       
@@ -157,7 +157,7 @@ predict.glmmLasso <- function(object,newdata=NULL,new.random.design=NULL,...)
         }
         
         y<- as.vector(family$linkinv(X[,is.element(colnames(X),names(object$coef))]%*%object$coef[is.element(names(object$coef),colnames(X))]))
-        rand.ok<-is.element(newdata[,object$subject],subj.ok)
+        rand.ok<-is.element(newdata[[object$subject]], set=subj.ok)
         W.neu<-W[,subj.test]
         if(nrow(X)!=1)
         {
@@ -184,8 +184,8 @@ predict.glmmLasso <- function(object,newdata=NULL,new.random.design=NULL,...)
       
       for(zu in 1:rnd.len)
       {
-        subj.new<-levels(as.factor(newdata[,object$subject[zu]]))
-        subj.old<-levels(as.factor(object$data[,object$subject[zu]]))
+        subj.new<-levels(as.factor(newdata[[object$subject[zu]]]))
+        subj.old<-levels(as.factor(object$data[[object$subject[zu]]]))
         subj.test<-is.element(subj.new,subj.old)
         subj.ok[[zu]]<-subj.new[subj.test]
         
